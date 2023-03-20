@@ -7,6 +7,11 @@ public class BarControl : MonoBehaviour
     // 판정라인과 바 불러오기
     public RectTransform timingbar;
     public RectTransform bar;
+    public RectTransform[] coolTrans;
+    public RectTransform[] perpectTrans;
+    public GameObject[] coolObj;
+    public GameObject[] perpectObj;
+
 
     // 판정라인 좌우범위
     public float leftlimit;
@@ -24,11 +29,13 @@ public class BarControl : MonoBehaviour
     {
         LimitSet();
         JudgmentSet();
+        GameManager.instance.CreateJudgmentRange();
     }
 
     void Update()
     {        
         Move();
+        JudgeObjSet();
     }
 
     void Move()
@@ -61,6 +68,19 @@ public class BarControl : MonoBehaviour
         GameManager.instance.perpectSize = perpectSize;
     }
 
-
+    void JudgeObjSet()
+    {
+        if(GameManager.instance.createJudge)
+        {
+            for (int i = 0; i < GameManager.instance.judgment; i++)
+            {
+                coolTrans[i].anchoredPosition = new Vector2(GameManager.instance.judgmentLocation[i], 0f);
+                perpectTrans[i].anchoredPosition = new Vector2(GameManager.instance.judgmentLocation[i], 0f);
+                coolObj[i].SetActive(true);
+                perpectObj[i].SetActive(true);
+            }
+        }
+        GameManager.instance.createJudge = false;
+    }
 
 }

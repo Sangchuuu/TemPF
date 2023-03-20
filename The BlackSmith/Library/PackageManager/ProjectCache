@@ -3639,6 +3639,7 @@ m_ResolvedPackages:
     - 4.0.0-pre.1
     - 4.0.0-pre.2
     - 4.0.0-pre.3
+    - 4.0.0
     compatible:
     - 2.2.3
     - 2.2.4
