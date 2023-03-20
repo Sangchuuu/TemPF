@@ -4,17 +4,26 @@ using UnityEngine;
 
 public class BarControl : MonoBehaviour
 {
+    // 판정라인과 바 불러오기
     public RectTransform timingbar;
     public RectTransform bar;
+
+    // 판정라인 좌우범위
     public float leftlimit;
     public float rightlimit;
+
+    // 판정바 스피드, 좌우 움직임 인수
     public float movespeed = 300f;
     bool moveRight = true;
-        
+
+    // 판정범위 설정
+    public float coolSize = 200f;
+    public float perpectSize = 80f;     
 
     void Start()
     {
-        limitset();
+        LimitSet();
+        JudgmentSet();
     }
 
     void Update()
@@ -27,18 +36,31 @@ public class BarControl : MonoBehaviour
         if (moveRight)
         {
             if (bar.anchoredPosition.x > rightlimit) moveRight = false;
-            bar.anchoredPosition += Vector2.right * movespeed * Time.deltaTime;
+            bar.anchoredPosition += Vector2.right * movespeed * Time.deltaTime;            
         }
         else
         {
             if (bar.anchoredPosition.x < leftlimit) moveRight = true;
             bar.anchoredPosition += Vector2.left * movespeed * Time.deltaTime;
         }
+        GameManager.instance.barLocation = bar.anchoredPosition.x;
     }
 
-    void limitset()
+    // 판정라인 좌우범위 설정
+    void LimitSet()
     {
         leftlimit = 0 - (timingbar.sizeDelta.x / 2);
         rightlimit = timingbar.sizeDelta.x / 2;
     }
+
+    // 판정범위 설정
+    void JudgmentSet()
+    {
+        GameManager.instance.judgmentRange = new Vector2(leftlimit + coolSize, rightlimit - coolSize);
+        GameManager.instance.coolSize = coolSize;
+        GameManager.instance.perpectSize = perpectSize;
+    }
+
+
+
 }
