@@ -303,9 +303,10 @@ GameObject:
   - component: {fileID: 161101244}
   - component: {fileID: 161101246}
   - component: {fileID: 161101245}
+  - component: {fileID: 161101247}
   m_Layer: 5
   m_Name: PerpectJudgeRange3
-  m_TagString: Untagged
+  m_TagString: Perpect
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -368,6 +369,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 161101243}
   m_CullTransparentMesh: 1
+--- !u!65 &161101247
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 161101243}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 80, y: 80, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &344773280
 GameObject:
   m_ObjectHideFlags: 0
@@ -598,9 +612,10 @@ GameObject:
   - component: {fileID: 724874301}
   - component: {fileID: 724874303}
   - component: {fileID: 724874302}
+  - component: {fileID: 724874304}
   m_Layer: 5
   m_Name: CoolJudgeRange3
-  m_TagString: Untagged
+  m_TagString: cool
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -663,6 +678,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 724874300}
   m_CullTransparentMesh: 1
+--- !u!65 &724874304
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 724874300}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 200, y: 80, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &848366985
 GameObject:
   m_ObjectHideFlags: 0
@@ -848,11 +876,17 @@ MonoBehaviour:
   perpectRange: []
   judgmentLocation: []
   judgmentRange: {x: 0, y: 0}
+  currentJudgment: 0
   judgment: 2
   createJudge: 0
   count: 0
   coolSize: 0
   perpectSize: 0
+  hitIndex: 
+  isPerfect: 0
+  isCool: 0
+  judge2Set: []
+  judge3Set: []
 --- !u!1 &877790724
 GameObject:
   m_ObjectHideFlags: 0
@@ -864,9 +898,10 @@ GameObject:
   - component: {fileID: 877790725}
   - component: {fileID: 877790727}
   - component: {fileID: 877790726}
+  - component: {fileID: 877790728}
   m_Layer: 5
   m_Name: PerpectJudgeRange1
-  m_TagString: Untagged
+  m_TagString: Perpect
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -929,6 +964,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 877790724}
   m_CullTransparentMesh: 1
+--- !u!65 &877790728
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 877790724}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 80, y: 80, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1081792544
 GameObject:
   m_ObjectHideFlags: 0
@@ -1089,7 +1137,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1748957572}
         m_TargetAssemblyTypeName: ButtonControl, Assembly-CSharp
-        m_MethodName: Button1
+        m_MethodName: HitButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1325,9 +1373,10 @@ GameObject:
   - component: {fileID: 1496878308}
   - component: {fileID: 1496878310}
   - component: {fileID: 1496878309}
+  - component: {fileID: 1496878311}
   m_Layer: 5
   m_Name: PerpectJudgeRange2
-  m_TagString: Untagged
+  m_TagString: Perpect
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1390,6 +1439,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1496878307}
   m_CullTransparentMesh: 1
+--- !u!65 &1496878311
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1496878307}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 80, y: 80, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1685048277
 GameObject:
   m_ObjectHideFlags: 0
@@ -1504,6 +1566,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6865a812bd105714397271b81d33bce2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  barControl: {fileID: 1081792546}
 --- !u!1 &1786542533
 GameObject:
   m_ObjectHideFlags: 0
@@ -1551,9 +1614,10 @@ GameObject:
   - component: {fileID: 1847176721}
   - component: {fileID: 1847176723}
   - component: {fileID: 1847176722}
+  - component: {fileID: 1847176724}
   m_Layer: 5
   m_Name: CoolJudgeRange1
-  m_TagString: Untagged
+  m_TagString: cool
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1616,6 +1680,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1847176720}
   m_CullTransparentMesh: 1
+--- !u!65 &1847176724
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1847176720}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 200, y: 80, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1902388992
 GameObject:
   m_ObjectHideFlags: 0
@@ -1695,9 +1772,10 @@ GameObject:
   - component: {fileID: 1935371021}
   - component: {fileID: 1935371023}
   - component: {fileID: 1935371022}
+  - component: {fileID: 1935371024}
   m_Layer: 5
   m_Name: CoolJudgeRange2
-  m_TagString: Untagged
+  m_TagString: cool
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1760,6 +1838,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1935371020}
   m_CullTransparentMesh: 1
+--- !u!65 &1935371024
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1935371020}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 200, y: 80, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1938911044
 GameObject:
   m_ObjectHideFlags: 0
@@ -1884,9 +1975,10 @@ GameObject:
   - component: {fileID: 2104871800}
   - component: {fileID: 2104871803}
   - component: {fileID: 2104871802}
+  - component: {fileID: 2104871804}
   m_Layer: 5
   m_Name: Bar
-  m_TagString: Untagged
+  m_TagString: Hitbar
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1949,3 +2041,16 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2104871799}
   m_CullTransparentMesh: 1
+--- !u!65 &2104871804
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2104871799}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 30, y: 250, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BarControl : MonoBehaviour
 {
+
     // 판정라인과 바 불러오기
     public RectTransform timingbar;
     public RectTransform bar;
@@ -11,7 +12,6 @@ public class BarControl : MonoBehaviour
     public RectTransform[] perpectTrans;
     public GameObject[] coolObj;
     public GameObject[] perpectObj;
-
 
     // 판정라인 좌우범위
     public float leftlimit;
@@ -63,12 +63,12 @@ public class BarControl : MonoBehaviour
     // 판정범위 설정
     void JudgmentSet()
     {
-        GameManager.instance.judgmentRange = new Vector2(leftlimit + coolSize, rightlimit - coolSize);
+        GameManager.instance.judgmentRange = new Vector2(leftlimit + (coolSize/2), rightlimit - (coolSize/2));
         GameManager.instance.coolSize = coolSize;
         GameManager.instance.perpectSize = perpectSize;
     }
 
-    void JudgeObjSet()
+    public void JudgeObjSet()
     {
         if(GameManager.instance.createJudge)
         {
@@ -80,22 +80,7 @@ public class BarControl : MonoBehaviour
                 perpectObj[i].SetActive(true);
             }
             GameManager.instance.createJudge = false;
-        }        
-
-        if (GameManager.instance.isHit)
-        {
-            coolObj[GameManager.instance.hitIndex].SetActive(false);
-            perpectObj[GameManager.instance.hitIndex].SetActive(false);
-            GameManager.instance.isHit = false;
         }
-
-        if (GameManager.instance.isMiss)
-        {
-
-            GameManager.instance.isMiss = false;
-        }
-
-        
     }
 
 }
