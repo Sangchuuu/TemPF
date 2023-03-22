@@ -58,7 +58,6 @@ public class GameManager : MonoBehaviour
                 {
                     if (barLocation < coolRange[index].y && barLocation > coolRange[index].x)
                     {
-<<<<<<< Updated upstream
                         if (barLocation < perpectRange[index].y && barLocation > perpectRange[index].x)
                         {
                             //Perpect 판정일때
@@ -87,7 +86,6 @@ public class GameManager : MonoBehaviour
                             isHit = true;
                             break;
                         }
-=======
                         Debug.Log("Perpect!");
                         break;
                     }
@@ -95,7 +93,6 @@ public class GameManager : MonoBehaviour
                     {
                         Debug.Log("Cool!");
                         break;
->>>>>>> Stashed changes
                     }
                 }
                 if (isHit == false)
