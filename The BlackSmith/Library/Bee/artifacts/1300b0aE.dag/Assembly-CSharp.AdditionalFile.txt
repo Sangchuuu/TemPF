@@ -1,0 +1,5 @@
+<<<<<<< HEAD:The BlackSmith/Library/Bee/artifacts/1300b0aEDbg.dag/Assembly-CSharp.AdditionalFile.txt
+C:\Users\User\Desktop\TemPF\The BlackSmith
+=======
+D:\Workfiles\Project\TemPF\The BlackSmith
+>>>>>>> backup:The BlackSmith/Library/Bee/artifacts/1300b0aE.dag/Assembly-CSharp.AdditionalFile.txt
