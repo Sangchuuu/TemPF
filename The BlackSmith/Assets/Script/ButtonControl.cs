@@ -24,7 +24,6 @@ public class ButtonControl : MonoBehaviour
                         barControl.coolObj[index].SetActive(false);
                         GameManager.instance.perpectRange[index] = Vector2.zero;
                         barControl.perpectObj[index].SetActive(false);
-                        Debug.Log("오브젝트꺼짐");
                         GameManager.instance.hitIndex[index] = true;
                         break;
                     }
@@ -44,7 +43,6 @@ public class ButtonControl : MonoBehaviour
                             barControl.coolObj[index].SetActive(false);
                             GameManager.instance.perpectRange[index] = Vector2.zero;
                             barControl.perpectObj[index].SetActive(false);
-                            Debug.Log("오브젝트꺼짐");
                             GameManager.instance.hitIndex[index] = true;
                             break;
                         }
@@ -66,7 +64,6 @@ public class ButtonControl : MonoBehaviour
                                     GameManager.instance.judgmentLocation[i] + (GameManager.instance.perpectSize / 2));
                                 barControl.coolObj[i].SetActive(true);
                                 barControl.perpectObj[i].SetActive(true);
-                                Debug.Log("오브젝트켜짐");
                                 GameManager.instance.hitIndex[i] = false;
                             }
                         }
@@ -86,8 +83,8 @@ public class ButtonControl : MonoBehaviour
             Debug.Log("납품완료");
 
             // 다음 대기열의 물품에 대한 정보를 불러와 셋팅
-            // GameManager.instance.judgment = 물품 판정 갯수;
-
+            GameManager.instance.judgment = Random.Range(1, 4);
+            //GameManager.instance.movespeed += 100f;
             GameManager.instance.coolRange = new Vector2[GameManager.instance.judgment];
             GameManager.instance.perpectRange = new Vector2[GameManager.instance.judgment];
             GameManager.instance.judgmentLocation = new float[GameManager.instance.judgment];

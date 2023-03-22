@@ -17,8 +17,6 @@ public class BarControl : MonoBehaviour
     public float leftlimit;
     public float rightlimit;
 
-    // 판정바 스피드, 좌우 움직임 인수
-    public float movespeed = 300f;
     bool moveRight = true;
 
     // 판정범위 설정
@@ -43,12 +41,12 @@ public class BarControl : MonoBehaviour
         if (moveRight)
         {
             if (bar.anchoredPosition.x > rightlimit) moveRight = false;
-            bar.anchoredPosition += Vector2.right * movespeed * Time.deltaTime;            
+            bar.anchoredPosition += Vector2.right * GameManager.instance.movespeed * Time.deltaTime;            
         }
         else
         {
             if (bar.anchoredPosition.x < leftlimit) moveRight = true;
-            bar.anchoredPosition += Vector2.left * movespeed * Time.deltaTime;
+            bar.anchoredPosition += Vector2.left * GameManager.instance.movespeed * Time.deltaTime;
         }
         GameManager.instance.barLocation = bar.anchoredPosition.x;
     }

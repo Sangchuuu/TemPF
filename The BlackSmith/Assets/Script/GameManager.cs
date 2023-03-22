@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
   
     public float barLocation;
+    public float movespeed = 300f;
+
     public Vector2[] coolRange;
     public Vector2[] perpectRange;
     public float[] judgmentLocation;
@@ -21,6 +23,7 @@ public class GameManager : MonoBehaviour
     public bool[] hitIndex;
     public bool isPerfect;
     public bool isCool;
+    
     [HideInInspector] public Vector2[] judge2Set;
     [HideInInspector] public Vector2[] judge3Set;
 
