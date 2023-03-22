@@ -79,8 +79,23 @@ public class BarControl : MonoBehaviour
                 coolObj[i].SetActive(true);
                 perpectObj[i].SetActive(true);
             }
+            GameManager.instance.createJudge = false;
+        }        
+
+        if (GameManager.instance.isHit)
+        {
+            coolObj[GameManager.instance.hitIndex].SetActive(false);
+            perpectObj[GameManager.instance.hitIndex].SetActive(false);
+            GameManager.instance.isHit = false;
         }
-        GameManager.instance.createJudge = false;
+
+        if (GameManager.instance.isMiss)
+        {
+
+            GameManager.instance.isMiss = false;
+        }
+
+        
     }
 
 }

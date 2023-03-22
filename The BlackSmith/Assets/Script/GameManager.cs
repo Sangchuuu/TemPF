@@ -12,14 +12,20 @@ public class GameManager : MonoBehaviour
     public float barLocation;
     public List<Vector2> coolRange;
     public List<Vector2> perpectRange;
+    public List<Vector2> hitJudgment;
     public List<float> judgmentLocation;
     public Vector2 judgmentRange;
+    public int currentJudgment;
     public int judgment = 2;
     public bool createJudge;
     public int count = 0;
     public float coolSize;
     public float perpectSize;
-    
+    public bool isHit;
+    public bool isMiss;
+    public int hitIndex;
+
+
 
     private void Awake()
     {
@@ -44,33 +50,89 @@ public class GameManager : MonoBehaviour
 
     void UseButton()
     {
-        if (clickedBt1)
+        if (clickedBt1 && count != judgment)
         {
-            for(int index = 0; index < coolRange.Count; index++)
+            if(currentJudgment > 0)
             {
-                if (barLocation < coolRange[index].y && barLocation > coolRange[index].x)
+                for (int index = 0; index < coolRange.Count; index++)
                 {
-                    if (barLocation < perpectRange[index].y && barLocation > perpectRange[index].x)
+                    if (barLocation < coolRange[index].y && barLocation > coolRange[index].x)
                     {
-                        Debug.Log("Perpect!");
-                    }
-                    else
-                    {
-                        Debug.Log("Cool!");
+                        if (barLocation < perpectRange[index].y && barLocation > perpectRange[index].x)
+                        {
+                            //Perpect 판정일때
+                            Debug.Log("Perpect!");
+                            currentJudgment--;
+                            hitJudgment.Add(coolRange[index]);
+                            hitJudgment.Add(perpectRange[index]);
+                            coolRange.RemoveAt(index);
+                            perpectRange.RemoveAt(index);
+                            hitIndex = index;
+                            count++;
+                            isHit = true;
+                            break;
+                        }
+                        else
+                        {
+                            //Cool 판정일때
+                            Debug.Log("Cool!");
+                            currentJudgment--;
+                            hitJudgment.Add(coolRange[index]);
+                            hitJudgment.Add(perpectRange[index]);
+                            coolRange.RemoveAt(index);
+                            perpectRange.RemoveAt(index);
+                            hitIndex = index;
+                            count++;
+                            isHit = true;
+                            break;
+                        }
                     }
                 }
+                if (isHit == false)
+                {
+                    //Miss 판정일때                
+                    Debug.Log("Miss!");
+                    if(hitJudgment != null)
+                    {
+                        if (count == 1)
+                        {
+                            coolRange.Add(hitJudgment[0]);
+                            perpectRange.Add(hitJudgment[1]);
+
+                        }
+                        else if (count == 2)
+                        {
+                            coolRange.Add(hitJudgment[0]);
+                            perpectRange.Add(hitJudgment[1]);
+                            coolRange.Add(hitJudgment[2]);
+                            perpectRange.Add(hitJudgment[3]);
+                        }
+                        hitJudgment.Clear();
+                        currentJudgment = judgment;
+                        isMiss = true;
+                    }                    
+                    count = 0;
+                }
+                clickedBt1 = false;
+                isHit = false;
             }            
+        }
+        else
+        {
             clickedBt1 = false;
         }
         if (clickedBt2)
         {
-            if (judgment == 0)
+            if (currentJudgment <= 0)
             {
                 Debug.Log("납품완료");
                 coolRange.Clear();
                 perpectRange.Clear();
+                judgmentLocation.Clear();
+                hitJudgment.Clear();
+                // 다음 대기열의 물품에 대한 정보를 불러와 셋팅
+                // judgment = 2;
                 CreateJudgmentRange();
-                count = 0;
             }
             else
             {
@@ -97,7 +159,9 @@ public class GameManager : MonoBehaviour
         judgmentLocation.Add(random1);
         judgmentLocation.Add(random2);
         judgmentLocation.Add(random3);
-        
+
+        currentJudgment = judgment;
+        count = 0;
         createJudge = true;                
     }
 }

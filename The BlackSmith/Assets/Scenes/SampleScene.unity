@@ -1000,7 +1000,7 @@ MonoBehaviour:
   - {fileID: 161101243}
   leftlimit: 0
   rightlimit: 0
-  movespeed: 300
+  movespeed: 600
   coolSize: 200
   perpectSize: 80
 --- !u!1 &1089943929
