@@ -6,12 +6,17 @@ public class BarControl : MonoBehaviour
 {
 
     // 판정라인과 바 불러오기
-    public RectTransform timingbar;
-    public RectTransform bar;
-    public RectTransform[] coolTrans;
-    public RectTransform[] perpectTrans;
+    //public RectTransform timingbar;
+    //public RectTransform bar;
+    //public RectTransform[] coolTrans;
+    //public RectTransform[] perpectTrans;
+    public GameObject createState;
+    public GameObject timingBar;
+    public GameObject bar;
+    public GameObject coolObjPrefab;
+    public GameObject perfectObjPrefab;
     public GameObject[] coolObj;
-    public GameObject[] perpectObj;
+    public GameObject[] perfectObj;
 
     // 판정라인 좌우범위
     public float leftlimit;
@@ -20,18 +25,25 @@ public class BarControl : MonoBehaviour
     bool moveRight = true;
 
     // 판정범위 설정
-    public float coolSize = 200f;
-    public float perpectSize = 80f;     
+    public float coolSize;
+    public float perfectSize;
+
+    private void Awake()
+    {
+        createState = this.gameObject;
+    }
 
     void Start()
     {
+        coolObj = new GameObject[3];
+        perfectObj = new GameObject[3];
         LimitSet();
         JudgmentSet();
         GameManager.instance.CreateJudgmentRange();
     }
 
     void Update()
-    {        
+    {
         Move();
         JudgeObjSet();
     }
@@ -40,42 +52,46 @@ public class BarControl : MonoBehaviour
     {
         if (moveRight)
         {
-            if (bar.anchoredPosition.x > rightlimit) moveRight = false;
-            bar.anchoredPosition += Vector2.right * GameManager.instance.movespeed * Time.deltaTime;            
+            if (bar.transform.position.x > rightlimit) moveRight = false;
+            bar.transform.position += Vector3.right * GameManager.instance.movespeed * Time.deltaTime;
         }
         else
         {
-            if (bar.anchoredPosition.x < leftlimit) moveRight = true;
-            bar.anchoredPosition += Vector2.left * GameManager.instance.movespeed * Time.deltaTime;
+            if (bar.transform.position.x < leftlimit) moveRight = true;
+            bar.transform.position += Vector3.left * GameManager.instance.movespeed * Time.deltaTime;
         }
-        GameManager.instance.barLocation = bar.anchoredPosition.x;
+        GameManager.instance.barLocation = bar.transform.position.x;
     }
 
     // 판정라인 좌우범위 설정
     void LimitSet()
     {
-        leftlimit = 0 - (timingbar.sizeDelta.x / 2);
-        rightlimit = timingbar.sizeDelta.x / 2;
+        leftlimit = -(timingBar.transform.localScale.x / 2);
+        rightlimit = timingBar.transform.localScale.x / 2;
     }
 
     // 판정범위 설정
     void JudgmentSet()
     {
-        GameManager.instance.judgmentRange = new Vector2(leftlimit + (coolSize/2), rightlimit - (coolSize/2));
+        coolSize = timingBar.transform.localScale.x * 0.12f;
+        perfectSize = timingBar.transform.localScale.x * 0.06f;
+        coolObjPrefab.transform.localScale = new Vector3(coolSize, timingBar.transform.localScale.y, 1f);
+        perfectObjPrefab.transform.localScale = new Vector3(perfectSize, timingBar.transform.localScale.y, 1f);
+        GameManager.instance.judgmentRange = new Vector2(leftlimit + (coolSize / 2), rightlimit - (coolSize / 2));
         GameManager.instance.coolSize = coolSize;
-        GameManager.instance.perpectSize = perpectSize;
+        GameManager.instance.perfectSize = perfectSize;
     }
 
     public void JudgeObjSet()
     {
-        if(GameManager.instance.createJudge)
+        if (GameManager.instance.createJudge)
         {
             for (int i = 0; i < GameManager.instance.judgment; i++)
             {
-                coolTrans[i].anchoredPosition = new Vector2(GameManager.instance.judgmentLocation[i], 0f);
-                perpectTrans[i].anchoredPosition = new Vector2(GameManager.instance.judgmentLocation[i], 0f);
-                coolObj[i].SetActive(true);
-                perpectObj[i].SetActive(true);
+                coolObj[i] = Instantiate(coolObjPrefab, createState.transform);
+                perfectObj[i] = Instantiate(perfectObjPrefab, createState.transform);
+                coolObj[i].transform.position = new Vector3(GameManager.instance.judgmentLocation[i], timingBar.transform.position.y, 0f);
+                perfectObj[i].transform.position = new Vector3(GameManager.instance.judgmentLocation[i], timingBar.transform.position.y, 0f);                
             }
             GameManager.instance.createJudge = false;
         }

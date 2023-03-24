@@ -20,10 +20,11 @@ public class ButtonControl : MonoBehaviour
                         Debug.Log("Perpect!");
                         GameManager.instance.isPerfect = true;
                         GameManager.instance.currentJudgment--;
-                        GameManager.instance.coolRange[index] = Vector2.zero;
-                        barControl.coolObj[index].SetActive(false);
+                        GameManager.instance.coolRange[index] = Vector2.zero;                        
                         GameManager.instance.perpectRange[index] = Vector2.zero;
-                        barControl.perpectObj[index].SetActive(false);
+                        Destroy(barControl.coolObj[index]);
+                        Destroy(barControl.perfectObj[index]);
+                        barControl.perfectObj[index].SetActive(false);
                         GameManager.instance.hitIndex[index] = true;
                         break;
                     }
@@ -40,9 +41,9 @@ public class ButtonControl : MonoBehaviour
                             GameManager.instance.isCool = true;
                             GameManager.instance.currentJudgment--;
                             GameManager.instance.coolRange[index] = Vector2.zero;
-                            barControl.coolObj[index].SetActive(false);
                             GameManager.instance.perpectRange[index] = Vector2.zero;
-                            barControl.perpectObj[index].SetActive(false);
+                            Destroy(barControl.coolObj[index]);
+                            Destroy(barControl.perfectObj[index]);
                             GameManager.instance.hitIndex[index] = true;
                             break;
                         }
@@ -60,10 +61,12 @@ public class ButtonControl : MonoBehaviour
                             {
                                 GameManager.instance.coolRange[i] = new Vector2(GameManager.instance.judgmentLocation[i] - (GameManager.instance.coolSize / 2),
                                     GameManager.instance.judgmentLocation[i] + (GameManager.instance.coolSize / 2));
-                                GameManager.instance.perpectRange[i] = new Vector2(GameManager.instance.judgmentLocation[i] - (GameManager.instance.perpectSize / 2),
-                                    GameManager.instance.judgmentLocation[i] + (GameManager.instance.perpectSize / 2));
-                                barControl.coolObj[i].SetActive(true);
-                                barControl.perpectObj[i].SetActive(true);
+                                GameManager.instance.perpectRange[i] = new Vector2(GameManager.instance.judgmentLocation[i] - (GameManager.instance.perfectSize / 2),
+                                    GameManager.instance.judgmentLocation[i] + (GameManager.instance.perfectSize / 2));
+                                barControl.coolObj[i] = Instantiate(barControl.coolObjPrefab, barControl.createState.transform);
+                                barControl.perfectObj[i] = Instantiate(barControl.perfectObjPrefab, barControl.createState.transform);
+                                barControl.coolObj[i].transform.position = new Vector3(GameManager.instance.judgmentLocation[i], barControl.timingBar.transform.position.y, 0f);
+                                barControl.perfectObj[i].transform.position = new Vector3(GameManager.instance.judgmentLocation[i], barControl.timingBar.transform.position.y, 0f);
                                 GameManager.instance.hitIndex[i] = false;
                             }
                         }
