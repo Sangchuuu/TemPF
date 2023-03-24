@@ -32,8 +32,12 @@ public class ButtonControl : MonoBehaviour
                 if(!GameManager.instance.isSpecial)
                 {
                     Debug.Log("Miss");
-                    GameManager.instance.specialNPC = false;
-                    GameManager.instance.feverIsOver = true;
+                    GameManager.instance.specialNPC = false;                    
+                    if (!GameManager.instance.isFeverTime)
+                    {
+                        GameManager.instance.feverIsOver = true;
+                        barControl.specialObj.GetComponent<SpriteRenderer>().color = new Color(0.5f, 0.5f, 0.5f, 1f);
+                    }
                 }
             }
             // 피버가 아닐때
@@ -110,17 +114,24 @@ public class ButtonControl : MonoBehaviour
         if (GameManager.instance.currentJudgment <= 0)
         {
             Debug.Log("납품완료");
-
+            if(!GameManager.instance.isFeverTime)
+            {
+                int point = (int)Random.Range(1, 11);
+                GameManager.instance.specialPoint += point;
+            }            
             // 다음 대기열의 물품에 대한 정보를 불러와 셋팅
             if (GameManager.instance.isFeverTime) GameManager.instance.judgment = 1;
             else
             {
-                GameManager.instance.judgment = Random.Range(1, 5);
-                if(GameManager.instance.judgment == 4)
+                if (GameManager.instance.specialPoint >= 100)
                 {
                     GameManager.instance.judgment = 1;
                     GameManager.instance.specialNPC = true;
+                    GameManager.instance.specialPoint = 0;
                 }
+                else GameManager.instance.judgment = Random.Range(1, 4);
+                
+                
             }
                 
 

@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Æ¯¼ö¼Õ´Ô")]
     public bool specialNPC;
+    public int specialPoint = 0;
     
     [HideInInspector] public bool createJudge;
     //public int count = 0;

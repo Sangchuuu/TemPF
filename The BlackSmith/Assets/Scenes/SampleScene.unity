@@ -781,8 +781,8 @@ MonoBehaviour:
   currentJudgment: 0
   judgment: 2
   specialNPC: 0
+  specialPoint: 80
   createJudge: 0
-  count: 0
   coolSize: 0
   perfectSize: 0
   specialSize: 0
@@ -790,9 +790,9 @@ MonoBehaviour:
   isCool: 0
   isPerfect: 0
   isSpecial: 0
-  feverIsOver: 0
   isFeverTime: 0
   feverTime: 10
+  feverIsOver: 0
   judge2Set: []
   judge3Set: []
 --- !u!1 &1089943929
