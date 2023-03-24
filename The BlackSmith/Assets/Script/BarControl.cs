@@ -31,12 +31,12 @@ public class BarControl : MonoBehaviour
     private void Awake()
     {
         createState = this.gameObject;
+        coolObj = new GameObject[3];
+        perfectObj = new GameObject[3];
     }
 
     void Start()
-    {
-        coolObj = new GameObject[3];
-        perfectObj = new GameObject[3];
+    {        
         LimitSet();
         JudgmentSet();
         GameManager.instance.CreateJudgmentRange();
