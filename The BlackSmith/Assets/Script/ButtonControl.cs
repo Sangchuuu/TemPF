@@ -36,7 +36,7 @@ public class ButtonControl : MonoBehaviour
                     if (!GameManager.instance.isFeverTime)
                     {
                         GameManager.instance.feverIsOver = true;
-                        barControl.specialObj.GetComponent<SpriteRenderer>().color = new Color(0.5f, 0.5f, 0.5f, 1f);
+                        if(barControl.specialObj != null) barControl.specialObj.GetComponent<SpriteRenderer>().color = new Color(0.5f, 0.5f, 0.5f, 1f);
                     }
                 }
             }
