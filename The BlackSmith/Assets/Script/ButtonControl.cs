@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ButtonControl : MonoBehaviour
@@ -8,9 +9,35 @@ public class ButtonControl : MonoBehaviour
 
     public void HitButton()
     {
-        if (GameManager.instance.count != GameManager.instance.judgment)
+        if (GameManager.instance.currentJudgment > 0)
         {
-            if (GameManager.instance.currentJudgment > 0)
+            // 특수 손님 일때
+            if (GameManager.instance.specialNPC || GameManager.instance.isFeverTime || GameManager.instance.feverIsOver)
+            {
+                if (GameManager.instance.barLocation < GameManager.instance.specialRange.y && GameManager.instance.barLocation > GameManager.instance.specialRange.x)
+                {
+                    Debug.Log("Special!");
+                    // 맞추면 피버 발동
+                    GameManager.instance.isSpecial = true;
+                    if (GameManager.instance.specialNPC) GameManager.instance.specialNPC = false;
+                    if (!GameManager.instance.feverIsOver) GameManager.instance.isFeverTime = true;                                                            
+                    GameManager.instance.currentJudgment--;
+                    GameManager.instance.specialRange = Vector2.zero;
+                    Destroy(barControl.specialObj);
+                    if(!GameManager.instance.isFeverTime && !GameManager.instance.specialNPC)
+                    {
+                        GameManager.instance.feverIsOver = false;
+                    }
+                }
+                if(!GameManager.instance.isSpecial)
+                {
+                    Debug.Log("Miss");
+                    GameManager.instance.specialNPC = false;
+                    GameManager.instance.feverIsOver = true;
+                }
+            }
+            // 피버가 아닐때
+            else
             {
                 for (int index = 0; index < GameManager.instance.judgment; index++)
                 {
@@ -20,22 +47,20 @@ public class ButtonControl : MonoBehaviour
                         Debug.Log("Perpect!");
                         GameManager.instance.isPerfect = true;
                         GameManager.instance.currentJudgment--;
-                        GameManager.instance.coolRange[index] = Vector2.zero;                        
+                        GameManager.instance.coolRange[index] = Vector2.zero;
                         GameManager.instance.perpectRange[index] = Vector2.zero;
                         Destroy(barControl.coolObj[index]);
                         Destroy(barControl.perfectObj[index]);
-                        barControl.perfectObj[index].SetActive(false);
                         GameManager.instance.hitIndex[index] = true;
                         break;
                     }
                 }
-                if(!GameManager.instance.isPerfect)
+                if (!GameManager.instance.isPerfect)
                 {
                     for (int index = 0; index < GameManager.instance.judgment; index++)
                     {
                         if (GameManager.instance.barLocation < GameManager.instance.coolRange[index].y && GameManager.instance.barLocation > GameManager.instance.coolRange[index].x)
                         {
-
                             //Cool 판정일때
                             Debug.Log("Cool!");
                             GameManager.instance.isCool = true;
@@ -48,7 +73,7 @@ public class ButtonControl : MonoBehaviour
                             break;
                         }
                     }
-                }                
+                }
                 if (!GameManager.instance.isPerfect && !GameManager.instance.isCool)
                 {
                     //Miss 판정일때
@@ -76,6 +101,7 @@ public class ButtonControl : MonoBehaviour
                 GameManager.instance.isPerfect = false;
                 GameManager.instance.isCool = false;
             }
+            GameManager.instance.isSpecial = false;
         }
     }
 
@@ -86,7 +112,18 @@ public class ButtonControl : MonoBehaviour
             Debug.Log("납품완료");
 
             // 다음 대기열의 물품에 대한 정보를 불러와 셋팅
-            GameManager.instance.judgment = Random.Range(1, 4);
+            if (GameManager.instance.isFeverTime) GameManager.instance.judgment = 1;
+            else
+            {
+                GameManager.instance.judgment = Random.Range(1, 5);
+                if(GameManager.instance.judgment == 4)
+                {
+                    GameManager.instance.judgment = 1;
+                    GameManager.instance.specialNPC = true;
+                }
+            }
+                
+
             //GameManager.instance.movespeed += 100f;
             GameManager.instance.coolRange = new Vector2[GameManager.instance.judgment];
             GameManager.instance.perpectRange = new Vector2[GameManager.instance.judgment];

@@ -148,8 +148,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 71219746}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -40, y: -65, z: 0}
-  m_LocalScale: {x: 1.5, y: 12, z: 1}
+  m_LocalPosition: {x: -2, y: -3.05, z: 0}
+  m_LocalScale: {x: 0.08, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2107962990}
@@ -562,7 +562,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 100
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -772,20 +772,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   barLocation: 0
-  movespeed: 40
+  movespeed: 3
   coolRange: []
   perpectRange: []
+  specialRange: {x: 0, y: 0}
   judgmentLocation: []
   judgmentRange: {x: 0, y: 0}
   currentJudgment: 0
   judgment: 2
+  specialNPC: 0
   createJudge: 0
   count: 0
   coolSize: 0
   perfectSize: 0
+  specialSize: 0
   hitIndex: 
-  isPerfect: 0
   isCool: 0
+  isPerfect: 0
+  isSpecial: 0
+  feverIsOver: 0
+  isFeverTime: 0
+  feverTime: 10
   judge2Set: []
   judge3Set: []
 --- !u!1 &1089943929
@@ -947,8 +954,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1243461923}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -65, z: 0}
-  m_LocalScale: {x: 80, y: 4, z: 1}
+  m_LocalPosition: {x: 0, y: -3.05, z: 0}
+  m_LocalScale: {x: 4, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2107962990}
@@ -1410,10 +1417,13 @@ MonoBehaviour:
   timingBar: {fileID: 1243461923}
   bar: {fileID: 71219746}
   coolObjPrefab: {fileID: 3192000197113405666, guid: 49cd6d1e6bdc44e4b9aedeb4ca7933af, type: 3}
-  perfectObjPrefab: {fileID: 580511093757822946, guid: d41acd80316a3fd46a5849e6f5ec89c1, type: 3}
+  perfectObjPrefab: {fileID: 580511093757822946, guid: 90e8d4acd0784374599f9b971fd47e06, type: 3}
+  specialObjPrefab: {fileID: 580511093757822946, guid: d41acd80316a3fd46a5849e6f5ec89c1, type: 3}
   coolObj: []
   perfectObj: []
+  specialObj: {fileID: 0}
   leftlimit: 0
   rightlimit: 0
   coolSize: 200
   perfectSize: 0
+  specialSize: 0
