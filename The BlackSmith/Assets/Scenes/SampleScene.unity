@@ -1424,6 +1424,9 @@ MonoBehaviour:
   specialObj: {fileID: 0}
   leftlimit: 0
   rightlimit: 0
-  coolSize: 200
+  setCoolSize: 15
+  setPerfectSize: 6
+  setSpecialSize: 0
+  coolSize: 0
   perfectSize: 0
   specialSize: 0

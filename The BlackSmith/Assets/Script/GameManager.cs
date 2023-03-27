@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public float barLocation;
 
     [Header("판정바 스피드")]
-    public float movespeed = 3f;
+    public float movespeed;
 
     [HideInInspector] public Vector2[] coolRange;
     [HideInInspector] public Vector2[] perpectRange;
@@ -20,11 +20,11 @@ public class GameManager : MonoBehaviour
 
     [Header("판정라인갯수 1~3")]
     public int currentJudgment;
-    public int judgment = 3;
+    public int judgment;
 
     [Header("특수손님")]
     public bool specialNPC;
-    public int specialPoint = 0;
+    public int specialPoint;
     
     [HideInInspector] public bool createJudge;
     //public int count = 0;
@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
     
     [Header("피버")]
     public bool isFeverTime;
-    public float feverTime = 10f;
+    public float feverTime;
     [HideInInspector] public bool feverIsOver;
 
     [HideInInspector] public Vector2[] judge2Set;
@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour
         FeverCheck();
     }
 
-    public void FeverCheck()
+    public void FeverCheck() // 피버 진입 체크
     {
         if (isFeverTime)
         {
@@ -86,7 +86,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void CreateJudgmentRange()
+    public void CreateJudgmentRange() // 판정라인이 보여질 위치 계산및 저장
     {   
         if(specialNPC || isFeverTime)
         {
@@ -133,8 +133,12 @@ public class GameManager : MonoBehaviour
         createJudge = true;
     }
 
-    private void ParameterInit()
+    private void ParameterInit() // 초기화 함수
     {
+        movespeed = 2f;
+        judgment = 3;
+        specialPoint = 0;
+        feverTime = 10f;
         hitIndex = new bool[3];
         judge2Set = new Vector2[2];
         judge3Set = new Vector2[3];
