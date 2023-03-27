@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -40,7 +42,8 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public bool isCool;
     [HideInInspector] public bool isPerfect;
     [HideInInspector] public bool isSpecial;
-    
+    [HideInInspector] public bool isMiss;
+
     [Header("피버")]
     public bool isFeverTime;
     public float feverTime;
@@ -48,6 +51,15 @@ public class GameManager : MonoBehaviour
 
     [HideInInspector] public Vector2[] judge2Set;
     [HideInInspector] public Vector2[] judge3Set;
+
+    [Header("텍스트 관리")]
+    public GameObject judgmentTextObj;
+    public GameObject feverTextObj;
+    public float judgmentTextTime;
+    public float feverTextTime;
+    public bool isJudgment;
+    [HideInInspector] public TextMeshProUGUI judgmentText;
+    [HideInInspector] public TextMeshProUGUI feverText;
 
     private void Awake()
     {
@@ -62,13 +74,28 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        
+        TextInit();
     }
 
     // Update is called once per frame
     void Update()
     {
         FeverCheck();
+        OnOffText();
+    }
+    private void ParameterInit() // 초기화 함수
+    {
+        movespeed = 2f;
+        judgment = 3;
+        specialPoint = 0;
+        feverTime = 10f;
+        hitIndex = new bool[3];
+        judge2Set = new Vector2[2];
+        judge3Set = new Vector2[3];
+        coolRange = new Vector2[judgment];
+        perpectRange = new Vector2[judgment];
+        judgmentLocation = new float[judgment];
+        feverTextTime = feverTime;
     }
 
     public void FeverCheck() // 피버 진입 체크
@@ -86,7 +113,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void CreateJudgmentRange() // 판정라인이 보여질 위치 계산및 저장
+    public void CreateJudgmentRange() // 판정라인이 보여질 위치 계산 및 저장
     {   
         if(specialNPC || isFeverTime)
         {
@@ -133,17 +160,52 @@ public class GameManager : MonoBehaviour
         createJudge = true;
     }
 
-    private void ParameterInit() // 초기화 함수
+    private void TextInit()
     {
-        movespeed = 2f;
-        judgment = 3;
-        specialPoint = 0;
-        feverTime = 10f;
-        hitIndex = new bool[3];
-        judge2Set = new Vector2[2];
-        judge3Set = new Vector2[3];
-        coolRange = new Vector2[judgment];
-        perpectRange = new Vector2[judgment];
-        judgmentLocation = new float[judgment];
+        judgmentText = judgmentTextObj.GetComponent<TextMeshProUGUI>();
+        judgmentText.text = " ";
+        judgmentTextObj.SetActive(false);
+
+        feverText = feverTextObj.GetComponent<TextMeshProUGUI>();
+        feverText.text = "Fever Time !";
+        feverTextObj.SetActive(false);
+    }
+
+    public void TextChange() // 판정 텍스트 관리
+    {
+        // 판정시 맞는 텍스트 변경
+        if (isPerfect || isSpecial)
+        {
+            judgmentText.text = "Perfect !";
+        }
+        if (isCool)
+        {
+            judgmentText.text = "Cool !";
+        }
+        if (isMiss)
+        {
+            judgmentText.text = "Miss !";
+        }
+    }
+    
+    public void OnOffText()
+    {
+        if (isFeverTime) feverTextObj.SetActive(true);
+        if (feverIsOver) feverTextObj.SetActive(false);
+
+        judgmentTextTime -= Time.deltaTime;
+
+        if (isJudgment)
+        {
+            judgmentTextTime = 1f;
+            judgmentTextObj.SetActive(true);
+            isJudgment = false;
+        }
+
+        if (judgmentTextTime < 0)
+        {
+            judgmentTextTime = 0;
+            judgmentTextObj.SetActive(false);
+        }
     }
 }

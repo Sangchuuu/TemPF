@@ -17,8 +17,9 @@ public class ButtonControl : MonoBehaviour
                 if (GameManager.instance.barLocation < GameManager.instance.specialRange.y && GameManager.instance.barLocation > GameManager.instance.specialRange.x)
                 {
                     Debug.Log("Special!");
-                    // 맞추면 피버 발동
                     GameManager.instance.isSpecial = true;
+                    GameManager.instance.TextChange();
+                    GameManager.instance.isJudgment = true;
                     if (GameManager.instance.specialNPC) GameManager.instance.specialNPC = false;
                     if (!GameManager.instance.feverIsOver) GameManager.instance.isFeverTime = true;                                                            
                     GameManager.instance.currentJudgment--;
@@ -51,6 +52,7 @@ public class ButtonControl : MonoBehaviour
                         Debug.Log("Perpect!");
                         GameManager.instance.isPerfect = true;
                         Judge(index);
+
                         break;
                     }
                 }
@@ -61,7 +63,7 @@ public class ButtonControl : MonoBehaviour
                         if (GameManager.instance.barLocation < GameManager.instance.coolRange[index].y && GameManager.instance.barLocation > GameManager.instance.coolRange[index].x)
                         {
                             //Cool 판정일때
-                            Debug.Log("Cool!");
+                            Debug.Log("Cool!");                            
                             GameManager.instance.isCool = true;
                             Judge(index);
                             break;
@@ -72,6 +74,9 @@ public class ButtonControl : MonoBehaviour
                 {
                     //Miss 판정일때
                     Debug.Log("Miss!");
+                    GameManager.instance.isMiss = true;
+                    GameManager.instance.TextChange();
+                    GameManager.instance.isJudgment = true;
                     if (GameManager.instance.currentJudgment != GameManager.instance.judgment)
                     {
                         for (int i = 0; i < GameManager.instance.judgment; i++)
@@ -94,6 +99,7 @@ public class ButtonControl : MonoBehaviour
                 }
                 GameManager.instance.isPerfect = false;
                 GameManager.instance.isCool = false;
+                GameManager.instance.isMiss = false;
             }
             GameManager.instance.isSpecial = false;
         }
@@ -101,13 +107,14 @@ public class ButtonControl : MonoBehaviour
 
     void Judge(int index)
     {
-        GameManager.instance.isPerfect = true;
         GameManager.instance.currentJudgment--;
         GameManager.instance.coolRange[index] = Vector2.zero;
         GameManager.instance.perpectRange[index] = Vector2.zero;
         barControl.coolObj[index].SetActive(false);
         barControl.perfectObj[index].SetActive(false);
         GameManager.instance.hitIndex[index] = true;
+        GameManager.instance.TextChange();
+        GameManager.instance.isJudgment = true;
     }
 
     public void Button2() // 납품 버튼 클릭시
