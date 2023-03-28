@@ -8,6 +8,10 @@ public class CustomerControl : MonoBehaviour
     [SerializeField]
     bool m_bResSwitch;
     [SerializeField]
+    bool m_bTestSwitch;
+    [SerializeField]
+    float m_fTestTime;
+    [SerializeField]
     float m_fMoveSpeed;
     [SerializeField]
     float m_fResTime;
@@ -21,6 +25,8 @@ public class CustomerControl : MonoBehaviour
     GameObject m_objCusNow = null;
     [SerializeField]
     Queue m_queWaitList = new Queue();
+    [SerializeField]
+    GameObject[] m_objWaitinglist = new GameObject[10];
     [SerializeField]
     Dictionary<GameObject, string> m_dicWapon = new Dictionary<GameObject, string>();
     // Start is called before the first frame update
@@ -37,6 +43,7 @@ public class CustomerControl : MonoBehaviour
     public Transform GetMovPoint() { return m_transMovPoint; }
     public Transform GetResPoint() { return m_transResPoint; }
     public float GetMovSpeed() { return m_fMoveSpeed; }
+    public Queue GetQueue() { return m_queWaitList; }
     
 
     void Start()
@@ -46,6 +53,7 @@ public class CustomerControl : MonoBehaviour
         //m_dicWapon.Add(m_prefabCustomer[0], "Iron-dagger");
         //m_dicWapon.Add(m_prefabCustomer[0], "Unique-dagger");
         m_bResSwitch = true;
+        m_bTestSwitch = true;
     }
 
     // Update is called once per frame
@@ -56,11 +64,38 @@ public class CustomerControl : MonoBehaviour
         {
             StartCoroutine(Respwan());
         }
+        if ( m_queWaitList.Count <= 10)
+        {
+            for (int i = 0; i < m_queWaitList.Count; i++)
+            {
+                m_objWaitinglist[i].SetActive(true);
+            }
+            for (int i = 9; i > m_queWaitList.Count; i--)
+            {
+                m_objWaitinglist[i].SetActive(false);
+            }
+        }
+        else
+            Debug.Log("Gameover");
+        if (m_bTestSwitch == true)
+        {
+            StartCoroutine(RRRR());
+        }
     }
-    
+    IEnumerator RRRR()
+    {
+        m_bTestSwitch = false;
+        yield return new WaitForSeconds(m_fTestTime);
+        TestFunc();
+    }
+    void TestFunc()
+    {
+        Debug.Log("DeQue");
+        m_queWaitList.Dequeue();
+        m_bTestSwitch = true;
+    }
     IEnumerator Respwan()
     {
-        Debug.Log("in");
         m_bResSwitch = false;
         yield return new WaitForSeconds(m_fResTime);
         CusRespawn();
